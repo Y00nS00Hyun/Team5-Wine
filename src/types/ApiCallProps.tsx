@@ -1,6 +1,7 @@
 export interface ApiCallProps {
-    method : string,
-    query : string,
-    body : any | null,
-    apiName : string
-};
+  method: string;
+  url: string;
+  query: Object;
+  body: any | null;
+  apiName: string;
+}

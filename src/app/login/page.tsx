@@ -10,10 +10,12 @@ const Home: React.FC = () => {
     alert('Button clicked!');
   };
 
+  const {} = useMutation();
+
   return (
-    <div>
+    <div style={{ width: 400 }}>
       <GNB />
-      <Button text="가입하기" onClick={handleClick} />
+      <Button text="가입하기" onClick={handleClick} style={{ width: '100%' }} />
     </div>
   );
 };

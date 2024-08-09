@@ -14,26 +14,28 @@ export async function wineListAPI(limit: number|null = null, cursor: number|null
     //여기도 리미트 값을 설정하기 위한 방식이 필요
     // let count = 5;
     const method = "get";
-    let query = `/wines`;
-    if(limit) {
-        query = query+`?limit=${limit}`;
-    }
-    else if(cursor) {
-        query = query+`&cursor=${cursor}`;
-    }
-    else if(minPrice) {
-        query = query+`&minPrice=${minPrice}`;
-    }
-    else if(maxPrice) {
-        query = query+`&maxPrice=${maxPrice}`;
-    }   
-    else if(rating) {
-        query = query+`&rating=${rating}`;
-    }
+    let url = `/wines`;
+
+    // const searchParams = new URLSearchParams();
+    // searchParams.append("limit", limit?.toString() || "");
+    // searchParams.append("cursor", cursor?.toString() || "");
+    // searchParams.append("minPrice", minPrice?.toString() || "");
+    // searchParams.append("maxPrice", maxPrice?.toString() || "");
+    // searchParams.append("rating", rating?.toString() || "");
+    // query = query + "?" + searchParams.toString();
+
     // let query = `/wines?limit=${count}&cursor=${}&minPrice=${}&maxPrice=${}&rating=${}`;
     const apiName = "winelist";
     const body = null;
-    return await CallAPI({method, query, body, apiName});
+    return await CallAPI({
+        method, 
+        url, 
+        query: {
+            limit, cursor, minPrice, maxPrice, rating
+        }, 
+        body, 
+        apiName
+    });
 }
 
 export async function bestWine() {

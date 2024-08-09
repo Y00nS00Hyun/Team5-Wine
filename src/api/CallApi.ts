@@ -18,14 +18,19 @@ async function CallAPI({method, query, body = null, apiName}:ApiCallProps) {
 
     console.log(method, query, body, apiName);
 
-    let order = API_KEY + query;
+    let order = API_KEY;
     console.log(order);
+
+    axios.get(``, {
+        params: {}
+    })
 
     try {
         const response = await axios({
             method,
             url: order,
             data: body !== null ? body : undefined,
+            params: query,
         });
         console.log(response.data);
         return response.data;

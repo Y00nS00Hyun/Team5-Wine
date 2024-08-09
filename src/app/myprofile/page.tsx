@@ -54,8 +54,12 @@ function MyProfile() {
   }, []);
   //
 
+  const [myValue, setMyValue] = useState<string>('test');
+
   return (
     <div>
+      <input defaultValue={myValue} contentEditable />
+      <input defaultValue={myValue} />
       <SlideComponent {...testoption} />
       <SlideComponent {...testoption2} />
       <button onClick={openModal}>test</button>
