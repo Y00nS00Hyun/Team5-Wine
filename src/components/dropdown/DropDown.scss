@@ -1,0 +1,61 @@
+@import '../../styles/ColorList.scss';
+@import '../../styles//Font-Mixins.scss';
+@import '../../app/globals.scss';
+
+.dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    .toggle-button {
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+  }
+
+  .dropdown {
+    width: 126px;
+    background-color: $Grayscale-50;
+    border-radius: 16px;
+    border: 1px solid $Grayscale-300;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .dropdown-item {
+      cursor: pointer;
+      @include font-settings(16, medium, 26);
+      width: 114px;
+      height: 46px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 3px auto;
+    }
+
+    .dropdown-item:hover {
+      background-color: $Primary-Purple-10;
+      color: $Primary-Purple-100;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dropdown-wrapper {
+    .dropdown {
+      width: 101px;
+
+      .dropdown-item {
+        width: 90px;
+        height: 40px;
+        @include font-settings(14, medium, 24);
+      }
+    }
+  }
+}

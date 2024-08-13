@@ -1,0 +1,134 @@
+@import '../../styles/ColorList.scss';
+@import '../../styles/Font-Mixins.scss';
+@import '../../app/globals.scss';
+
+.soohyun-card {
+    width: 100%;
+    margin-bottom: 20px;
+    border: 1px $Grayscale-200 solid;
+    border-radius: 16px;
+    padding: 16px 40px 56px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+
+    .soohyun-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+
+        .soohyun-profile {
+            display: flex;
+            align-items: center;
+
+            .soohyun-image {
+                width: 64px;
+                height: 64px;
+                object-fit: cover;
+                border: 1px $Grayscale-100 solid;
+                border-radius: 50%;
+                margin-right: 16px;
+            }
+
+            .soohyun-nickname-date {
+                display: flex;
+                flex-direction: column;
+
+                .soohyun-nickname {
+                    color: $Grayscale-400;
+                    @include font-settings(18, semibold, 26);
+                }
+
+                .soohyun-date {
+                    color: $Grayscale-300;
+                    @include font-settings(16, regular, 24);
+                }
+            }
+        }
+
+        .options {
+            display: block;
+            width: 30px;
+            text-align: center;
+            color: $Grayscale-300;
+            font-size: 26px;
+            cursor: pointer;
+        }
+    }
+
+    .soohyun-aroma {
+        margin-top: 4px;
+    }
+
+    .soohyun-content {
+        @include font-settings(16, regular, 26);
+        line-height: 26px;
+    }
+
+    .soohyun-taste {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .soohyun-dropdown {
+        position: absolute;
+        top: 76px;
+        right: 40px;
+        flex: 2;
+    }
+
+    @include tablet {
+        padding: 32px 40px 78px 40px;
+        gap: 20px;
+    }
+
+    @include mobile {
+        padding: 16px 20px 16px 20px;
+        gap: 16px;
+
+        .soohyun-header {
+            height: 50px;
+
+            .soohyun-profile {
+                .soohyun-image {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .soohyun-nickname-date {
+                    .soohyun-nickname {
+                        @include font-settings(16, semibold, 26);
+                    }
+
+                    .soohyun-date {
+                        @include font-settings(14, regular, 24);
+                    }
+                }
+            }
+
+            .options {
+                font-size: 24px;
+            }
+        }
+
+        .soohyun-aroma {
+            margin-top: 3px;
+        }
+
+        .soohyun-content {
+            @include font-settings(14, regular, 24);
+            line-height: 24px;
+        }
+
+        .soohyun-taste {
+            gap: 12px;
+        }
+
+        .soohyun-dropdown {
+            top: 60px;
+        }
+    }
+}

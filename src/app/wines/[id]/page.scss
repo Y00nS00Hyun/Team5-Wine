@@ -1,0 +1,95 @@
+@import "../../../styles/ColorList.scss";
+@import "../../../styles/Font-Mixins.scss";
+@import "../../../app/globals.scss";
+
+.wine-page {
+    margin-top: 62px;
+
+    .wine-content {
+
+        .wine-card {}
+
+        .wine-position {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+
+            .rating-section {
+                position: absolute;
+                top: 60px;
+                // position: sticky;
+                // top: 492px;
+                right: 0;
+                flex: 1;
+            }
+
+            .a {
+                margin-right: 340px;
+                width: 100%;
+
+                .review-title-sh {
+                    @include font-settings(20, bold, 24);
+                    margin: 60px 0 30px;
+                }
+
+                .no-reviews {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 24px;
+                    margin-top: 200px;
+
+                    .no-reviews-explain {
+                        color: $Grayscale-300;
+                        @include font-settings(18, regular, 26);
+                    }
+
+                    justify-content: center;
+                    align-items: center;
+                    gap: 24px;
+                }
+
+                .modal-review {}
+            }
+        }
+    }
+
+    @include tablet {
+        .wine-content {
+
+            .wine-card {}
+
+            .wine-position {
+                display: inline;
+
+                .rating-section {
+                    position: relative;
+                    top: 0px;
+                    margin-top: 65px;
+                    margin-bottom: 28px;
+                    display: flex;
+                    justify-content: center;
+
+                    @include mobile {
+                        margin-top: 40px;
+                        margin-bottom: 20px;
+                    }
+                }
+
+                .a {
+                    width: 100%;
+
+                    .review-title-sh {
+                        display: none
+                    }
+
+                    .no-reviews {}
+
+                    .modal-review {}
+                }
+            }
+        }
+
+    }
+}
