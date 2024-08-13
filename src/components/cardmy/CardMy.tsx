@@ -17,6 +17,8 @@ const Cardmy: React.FC<ReviewListType> = (prop) => {
   const stars = Math.round(prop.rating);
   const formattedDate = new Date(prop.createdAt).toISOString().split('T')[0]; // 날짜를 YYYY-MM-DD 형식으로 변환
 
+  const menuRef = React.useRef<HTMLSpanElement>(null);
+
   const [dropdown, setDropdown] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
@@ -38,6 +40,7 @@ const Cardmy: React.FC<ReviewListType> = (prop) => {
   };
 
   const toggleDropdown = () => {
+    console.log(menuRef.current);
     setDropdown(!dropdown);
   };
 
@@ -66,14 +69,19 @@ const Cardmy: React.FC<ReviewListType> = (prop) => {
 
   return (
     <div className="review-card">
-      <div className="review-header">
+      <div
+        className="review-header"
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
         <div className="rating-container">
           <span className="rating">★ {prop.rating.toFixed(1)}</span>
           <span className="time">{formattedDate}</span>
         </div>
-        <span className="options" onClick={toggleDropdown}>
-          {' '}
-          ⋮{' '}
+        <span ref={menuRef} className="options" onClick={toggleDropdown}>
+          ⋮
         </span>
       </div>
       <div className="review-body">
@@ -81,7 +89,14 @@ const Cardmy: React.FC<ReviewListType> = (prop) => {
         <p className="description">{prop.content}</p>
       </div>
 
-      <div className="soohyun-dropdown">{dropdown && <SHDropdown items={items} reviewId={prop.id} />}</div>
+      <div
+        className="soohyun-dropdown"
+        style={{
+          top: (menuRef.current?.offsetTop || 0) + 16 + 'px',
+        }}
+      >
+        {dropdown && <SHDropdown items={items} reviewId={prop.id} />}
+      </div>
       <ModalReview isModalOpen={isModalOpen} closeModal={handleCloseModal} wineName={prop.wine.name} wineId={prop.wine.id} ReviewData={reviewData} />
     </div>
   );

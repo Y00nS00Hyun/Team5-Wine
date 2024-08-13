@@ -148,6 +148,9 @@
         gap: 32px;
         width: 100%;
         .content-menu-title {
+
+          cursor: pointer;
+
           @include font-settings(20, bold, 32);
           color: $Grayscale-400;
           @include mobile {

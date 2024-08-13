@@ -15,7 +15,8 @@
   position: relative;
   .soohyun-dropdown {
     position: absolute;
-    top: 76px;
+    // TODO: 하드코딩 수정 필요
+    // top: 76px;
     right: 40px;
   }
 
@@ -134,4 +135,5 @@
     color: $Grayscale-400;
     line-height: 26px;
   }
+}
 }

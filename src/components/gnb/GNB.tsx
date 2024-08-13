@@ -35,7 +35,7 @@ const GNB: React.FC = () => {
       </Link>
       {userData ? (
         <div className="gnb-right">
-          <Image src={userData.image ? userData.image : defaultprofile} alt="User" className="user-image" onClick={toggleDropdown} />
+          <Image src={userData.image ? userData.image : defaultprofile} alt="User" className="user-image" onClick={toggleDropdown} width={45} height={45} />
           {isOpen && ( // isOpen이 true일 때만 드롭다운을 렌더링
             <div className="dropdown-container" onClick={toggleDropdown}>
               <Dropdown items={items} />

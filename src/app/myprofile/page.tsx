@@ -84,9 +84,9 @@ function MyProfile() {
         <div className="user-data">
           <div className="user-image-layer">
             <div className="user-image-edit">
-              <Image src={currentImage} className="user-image" alt="유저프로필" />
+              <Image src={currentImage} className="user-image" alt="유저프로필" width={164} height={164} />
               <label>+</label>
-              {/* <input type="file" className="user-image-input" onChange={handleFileChange} /> */}
+              <input type="file" className="user-image-input" onChange={handleFileChange} />
             </div>
             <div className="user-data-layer">
               <p className="user-nickname">{user?.user.nickname}</p>

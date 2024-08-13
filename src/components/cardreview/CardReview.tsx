@@ -19,22 +19,22 @@ import { ReviewListType, responseReviewBody } from '@/types/ReviewProps';
 import { useSession } from 'next-auth/react';
 
 interface ReviewProps {
-    reviewId: id;
+  reviewId: id;
 }
 
 function convertReviewListToResponseBody(review: reviewDetailType, wineId: number): responseReviewBody {
-    return {
-        id: review.id,
-        rating: review.rating,
-        lightBold: review.lightBold,
-        smoothTannic: review.smoothTannic,
-        drySweet: review.drySweet,
-        softAcidic: review.softAcidic,
-        aroma: review.aroma,
-        content: review.content,
-        wineId: wineId,
-        teamId: "7-5",
-    };
+  return {
+    id: review.id,
+    rating: review.rating,
+    lightBold: review.lightBold,
+    smoothTannic: review.smoothTannic,
+    drySweet: review.drySweet,
+    softAcidic: review.softAcidic,
+    aroma: review.aroma,
+    content: review.content,
+    wineId: wineId,
+    teamId: '7-5',
+  };
 }
 
 const CardReview: React.FC<ReviewProps> = ({ reviewId }) => {
@@ -44,13 +44,13 @@ const CardReview: React.FC<ReviewProps> = ({ reviewId }) => {
   const session = useSession();
   const userData = session.data?.user.user;
 
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
-    const toggleDropdown = () => {
-        setDropdown(!dropdown);
-    };
+  const toggleDropdown = () => {
+    setDropdown(!dropdown);
+  };
 
   const onClickEdit = (reviewId: id) => {
     console.log(reviewId + ' 수정하기');
@@ -71,10 +71,10 @@ const CardReview: React.FC<ReviewProps> = ({ reviewId }) => {
     }
   };
 
-    const items = [
-        { name: '수정하기', func: onClickEdit },
-        { name: '삭제하기', func: onClickDelete },
-    ];
+  const items = [
+    { name: '수정하기', func: onClickEdit },
+    { name: '삭제하기', func: onClickDelete },
+  ];
 
   useEffect(() => {
     const fetchWineDetail = async () => {
@@ -103,7 +103,7 @@ const CardReview: React.FC<ReviewProps> = ({ reviewId }) => {
               </span>
             </div>
             <div>
-              {userData.user.id === detail.user.id && (
+              {userData?.id === detail.user.id && (
                 <span className="options" onClick={toggleDropdown}>
                   {' '}
                   ⋮{' '}

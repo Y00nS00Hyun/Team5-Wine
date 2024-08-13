@@ -1,15 +1,18 @@
 'use client';
-
 import React from 'react';
 import LoginForm from '@/components/loginform/loginform';
 import '../globals.scss';
 import './page.scss';
-import { useSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+import { NextRequestWithAuth } from 'next-auth/middleware';
+import { NextRequest } from 'next/server';
 
-const Home: React.FC = () => {
+const Home = () => {
   const session = useSession();
-  if (session.data?.user.user) {
+
+  if (session?.data?.user) {
     redirect('/');
   }
 

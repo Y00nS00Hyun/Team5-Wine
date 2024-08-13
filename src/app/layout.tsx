@@ -7,6 +7,7 @@ import Provider from '@/components/provider/Provider';
 import GNB from '@/components/gnb/GNB';
 import { getServerSession } from 'next-auth';
 import { usePathname } from 'next/navigation';
+import { getSession } from 'next-auth/react';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({
@@ -16,6 +17,7 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   const isAuthPage = pathname === '/login' || pathname === '/signup';
+
   return (
     <html lang="en">
       <body className={`${inter.className} ${isAuthPage ? 'auth-background' : ''}`}>
