@@ -1,0 +1,31 @@
+@import "../../styles/ColorList.scss";
+@import "../../styles/Font-Mixins.scss";
+@import "../../app/globals.scss";
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .label {
+        @include font-settings(16, medium, 26);
+        color: $Grayscale-300;
+        width: 40px;
+    }
+
+    .progressBar {
+        height: 6px;
+        width: 100%;
+        border-radius: 50px;
+        background-color: $Grayscale-100;
+
+        .progress {
+            background-color: $Primary-Purple-100;
+            height: 100%;
+            transition: width 0.3s ease;
+            border-radius: 50px;
+        }
+    }
+
+}

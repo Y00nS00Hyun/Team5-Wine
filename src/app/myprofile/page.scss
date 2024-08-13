@@ -1,0 +1,187 @@
+@import '@/app/globals.scss';
+
+.myprofile-layer {
+  margin-top: 37px;
+  display: flex;
+  gap: 60px;
+  @include tablet {
+    flex-direction: column;
+    gap: 40px;
+  }
+  @include mobile {
+    gap: 30px;
+  }
+  .user-profile-data {
+    padding: 39px 20px;
+    border: 1px solid $Grayscale-200;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 280px;
+    height: 555px;
+    border-radius: 16px;
+    @include tablet {
+      width: 100%;
+      align-items: flex-start;
+      padding: 23px 40px 30px;
+      height: fit-content;
+    }
+    @include mobile {
+
+    }
+    .user-data {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      @include tablet {
+        align-items: flex-start;
+        width: 100%;
+      }
+      .user-image-layer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        @include tablet {
+          flex-direction: row;
+          margin-bottom: 30px;
+        }
+        @include mobile {
+          align-items: flex-start;
+          margin-bottom: 20px;
+        }
+        .user-image-edit {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          @include tablet {
+            align-items: flex-start;
+            margin-right: 32px;
+          }
+          @include mobile {
+            margin-right: 16px;
+          }
+
+          .user-image {
+            width: 164px;
+            height: 164px;
+            @include tablet {
+              width: 80px;
+              height: 80px;
+            }
+            @include mobile {
+              width: 60px;
+              height: 60px;
+            }
+          }
+
+          .user-image-input {
+            margin-bottom: 32px;
+          }
+        }
+        .user-data-layer {
+          .user-nickname {
+            @include font-settings(24, bold, 32);
+            color: $Grayscale-400;
+            margin-bottom: 16px;
+            @include mobile {
+              @include font-settings(20, bold, 32);
+            }
+          }
+          .user-email {
+            @include font-settings(16, regular, 26);
+            color: $Grayscale-300;
+            margin-bottom: 48px;
+            @include tablet {
+              margin-bottom: 0;
+            }
+            @include mobile {
+              @include font-settings(14, regular, 24);
+            }
+          }
+        }
+      }
+      .user-edit {
+        @include tablet {
+          display: flex;
+          width: 100%;
+          align-items: last baseline;
+        }
+        @include mobile {
+          display: block;
+        }
+        .edit-input {
+          margin-bottom: 8px;
+          @include tablet {
+            width: 100%;
+            margin-right: 24px;
+          }
+        }
+        .edit-button-layer {
+          display: flex;
+          justify-content: flex-end;
+          @include tablet {
+            height: 48px;
+          }
+          button {
+            border-radius: 12px;
+            max-width: 96px;
+            max-height: 42px;
+            @include tablet {
+              width: 116px;
+              max-height: 100%;
+            }
+            @include mobile {
+              width: 89px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .my-content {
+    width: 100%;
+    .content-layer {
+      display: flex;
+      .content-menu {
+        display: flex;
+        gap: 32px;
+        width: 100%;
+        .content-menu-title {
+          @include font-settings(20, bold, 32);
+          color: $Grayscale-400;
+          @include mobile {
+            @include font-settings(18, bold, 26);
+          }
+
+          &.unactive {
+            color: $Grayscale-300;
+          }
+        }
+      }
+      .total-count {
+        @include font-settings(14, regular, 24);
+        color: $Primary-Purple-100;
+        width: 100%;
+        max-width: fit-content;
+        @include mobile {
+          @include font-settings(12, regular, 18);
+        }
+      }
+      margin-bottom: 22px;
+      @include mobile {
+        margin-bottom: 16px;
+      }
+    }
+    .content {
+      .content-item {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        @include tablet {
+          gap: 16px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+@import '../../../styles/Font-Mixins.scss';
+@import '../../../app/globals.scss';
+
+.review-content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-bottom: 48px;
+  max-width: 528px;
+
+  .review-title {
+
+    .a {
+
+      .b {
+        display: flex;
+        margin-bottom: 24px;
+
+        .wine-icon {
+          width: 68px;
+          height: 68px;
+          margin-right: 16px;
+
+          @include mobile {
+            width: 67px;
+            height: 67px;
+          }
+        }
+
+        .name-and-star {
+          display: flex;
+          width: 140px;
+          justify-content: space-between;
+          flex-direction: column;
+
+          @include mobile {
+            width: 106px;
+          }
+
+          img {
+            width: 22px;
+            height: 22px;
+
+            @include mobile {
+              width: 17px;
+              height: 17px;
+            }
+          }
+
+          p {
+            @include font-settings(18, semibold, 26);
+            width: 300px;
+
+            @include mobile {
+              @include font-settings(16, bold, 26);
+              width: 191px;
+            }
+          }
+
+          .input-width {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .wine-taste {
+    .taste-title {
+      @include font-settings(20, bold, 32);
+      margin-bottom: 24px;
+
+      @include mobile {
+        @include font-settings(18, bold, 26);
+      }
+    }
+  }
+
+  .wine-aroma {
+    .wine-aroma-title {
+      @include font-settings(20, bold, 32);
+      margin-bottom: 24px;
+
+      @include mobile {
+        @include font-settings(18, bold, 26);
+      }
+    }
+  }
+}

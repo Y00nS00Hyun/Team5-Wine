@@ -1,0 +1,152 @@
+@import '@/styles/ColorList.scss';
+@import '@/styles/Font-Mixins.scss';
+@import '../../app/globals.scss';
+
+.card {
+  border: 1px solid $Grayscale-200;
+  background: white;
+  border-radius: 16px;
+  margin-top: 20px;
+  display: flex;
+  width: 100%;
+
+  // @include desktop {
+  height: 260px;
+
+  .card-image {
+    margin: 49px 86px 0px 100px;
+    width: 58px;
+    height: 209px;
+  }
+
+  .wine {
+    width: 300px;
+    height: 168px;
+    margin-top: 52px;
+    margin-bottom: 40px;
+
+    .wine-name {
+      margin-bottom: 20px;
+      width: 100%;
+      height: 72px;
+      @include font-settings(30, semibold, 36);
+      color: $Grayscale-400;
+    }
+
+    .wine-desc {
+      margin-bottom: 13px;
+      width: 100%;
+      height: 26px;
+      @include font-settings(16, regular, 26);
+      color: $Grayscale-300;
+    }
+
+    .wine-price {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      height: 37px;
+      padding: 8px 15px;
+      border-radius: 12px;
+      background: $Primary-Purple-10;
+      color: $Primary-Purple-100;
+      @include font-settings(18, bold, 26);
+      text-align: center;
+    }
+  }
+
+
+  @include tablet {
+    height: 260px;
+
+    .card-image {
+      margin: -44px 60px 0px 60px;
+      width: 84px;
+      height: 302px;
+    }
+
+    .wine {
+      width: 300px;
+      height: 168px;
+      margin-top: 52px;
+      margin-bottom: 40px;
+
+      .wine-name {
+        margin-bottom: 20px;
+        width: 100%;
+        height: 72px;
+        @include font-settings(30, semibold, 36);
+        color: $Grayscale-400;
+      }
+
+      .wine-desc {
+        margin-bottom: 13px;
+        width: 100%;
+        height: 26px;
+        @include font-settings(16, regular, 26);
+        color: $Grayscale-300;
+      }
+
+      .wine-price {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        height: 37px;
+        padding: 8px 15px;
+        border-radius: 12px;
+        background: $Primary-Purple-10;
+        color: $Primary-Purple-100;
+        @include font-settings(18, bold, 26);
+        text-align: center;
+      }
+    }
+  }
+
+  @include mobile {
+    height: 190px;
+    border-radius: 12px;
+
+    .card-image {
+      vertical-align: top;
+      margin: -21px 20px 0px 20px;
+      width: 58px;
+      height: 209px;
+    }
+
+    .wine {
+      width: 200px;
+      height: 127.5px;
+      margin-top: 33px;
+      margin-bottom: 29.5px;
+
+      .wine-name {
+        margin-bottom: 15px;
+        width: 100%;
+        height: 48px;
+        @include font-settings(20, semibold, 24);
+        color: $Grayscale-400;
+      }
+
+      .wine-desc {
+        margin-bottom: 4.5px;
+        width: 100%;
+        height: 24px;
+        @include font-settings(14, regular, 24);
+        color: $Grayscale-300;
+      }
+
+      .wine-price {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        height: 36px;
+        padding: 6px 10px;
+        border-radius: 10px;
+        background: $Primary-Purple-10;
+        color: $Primary-Purple-100;
+        @include font-settings(14, bold, 24);
+        text-align: center;
+      }
+    }
+  }
+}

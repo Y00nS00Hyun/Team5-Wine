@@ -1,0 +1,41 @@
+@import '../styles/ColorList.scss';
+@import '@/styles/Font-Mixins.scss';
+
+.auth-background {
+  background-color: $Grayscale-100;
+}
+
+@mixin desktop {
+  @media screen and (min-width: 1025px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: 767px) {
+    @content;
+  }
+}
+
+body {
+  font-family: 'Pretendard' !important;
+  width: 100%;
+  max-width: 1140px;
+  margin: 24px auto;
+
+  @include tablet() {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  @include mobile() {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}

@@ -1,0 +1,99 @@
+@import '../../styles/ColorList.scss';
+@import '../../styles/Font-Mixins.scss';
+@import '../../app/globals.scss';
+
+.slidebar-layer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+
+  .option-title {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    margin-right: 16px;
+    width: 54px;
+    height: 25px;
+    border-radius: 6px;
+    padding: 4px 8px;
+    background-color: $Grayscale-100;
+    color: $Grayscale-300;
+    @include font-settings(14, semibold, 24);
+  }
+
+  .option-left {
+    width: 80px;
+    flex: 0 0 auto;
+    color: $Grayscale-400;
+    @include font-settings(16, medium, 26);
+  }
+
+  .option-right {
+    width: 64px;
+    flex: 0 0 auto;
+    color: $Grayscale-400;
+    @include font-settings(16, medium, 26);
+    text-align: end;
+  }
+  .slider {
+    -webkit-appearance: none; /* 기본 스타일 제거 (웹킷 브라우저) */
+    appearance: none; /* 기본 스타일 제거 (기타 브라우저) */
+    background: $Grayscale-100; /* 배경 색상 */
+    height: 6px; /* 슬라이더 높이 */
+    border-radius: 50px; /* 슬라이더 모서리 둥글게 */
+    border: 1px solid $Grayscale-200; /* 슬라이더 테두리 */
+    width: 100%; /* 슬라이더 너비 */
+    box-shadow: 0px 2px 20px 0px #0000000a; /* 슬라이더 그림자 */
+
+    /* Webkit 기반 브라우저의 슬라이더 핸들 */
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none; /* 기본 스타일 제거 */
+        background: $Primary-Purple-100; /* 슬라이더 핸들 색상 (변경할 색상으로 입력) */
+        width: 20px; /* 슬라이더 핸들 너비 */
+        height: 20px; /* 슬라이더 핸들 높이 */
+        border-radius: 50%; /* 슬라이더 핸들 모양 (원형) */
+        cursor: pointer; /* 커서 모양 */
+    }
+
+    /* Firefox의 슬라이더 핸들 */
+    &::-moz-range-thumb {
+        background: $Primary-Purple-100; /* 슬라이더 핸들 색상 (변경할 색상으로 입력) */
+        width: 20px; /* 슬라이더 핸들 너비 */
+        height: 20px; /* 슬라이더 핸들 높이 */
+        border-radius: 50%; /* 슬라이더 핸들 모양 (원형) */
+        cursor: pointer; /* 커서 모양 */
+    }
+
+    /* Internet Explorer의 슬라이더 핸들 */
+    &::-ms-thumb {
+        background: $Primary-Purple-100; /* 슬라이더 핸들 색상 (변경할 색상으로 입력) */
+        width: 20px; /* 슬라이더 핸들 너비 */
+        height: 20px; /* 슬라이더 핸들 높이 */
+        border-radius: 50%; /* 슬라이더 핸들 모양 (원형) */
+        cursor: pointer; /* 커서 모양 */
+    }
+}
+
+  @include mobile {
+    gap: 12px;
+
+    .option-title {
+      width: 48px;
+      margin-right: 7px;
+      @include font-settings(12, semibold, 20);
+    }
+
+    .option-left {
+      width: 62 px;
+      @include font-settings(14, medium, 24);
+    }
+
+    .option-right {
+      width: 50 px;
+      @include font-settings(14, medium, 24);
+    }
+  }
+}
