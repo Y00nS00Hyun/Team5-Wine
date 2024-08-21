@@ -1,5 +1,6 @@
 import { editUser } from "@/types/UserProps";
 import CallAPI from "./CallApi";
+import { ReviewListType } from "@/types/ReviewProps";
 
 export async function myDataAPI() {
     const method = "get";
@@ -26,7 +27,11 @@ export async function myReviewsAPI() {
     let query = `/users/me/reviews?limit=${count}`;
     const apiName = "myreview";
     const body = null;
-    return await CallAPI({method, query, body, apiName});
+    return await CallAPI<{
+        totalCount: number;
+        nextCursor: number;
+        list: ReviewListType[];
+    }>({method, query, body, apiName});
 }
 
 export async function myWineAPI() {

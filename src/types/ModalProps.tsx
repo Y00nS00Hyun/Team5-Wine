@@ -1,4 +1,4 @@
-import { wine, wineDetailType, wineTypeName } from './WineProps';
+import { wine, WineDetailType, wineTypeName } from './WineProps';
 
 export interface ModalProps {
   isModalOpen: boolean;
@@ -12,7 +12,7 @@ export interface ModalFilterProps extends ModalProps {
 
 export interface ModalWineEditProps extends ModalProps {
   id: number;
-  wine: wineDetailType | null;
+  wine: WineDetailType | null;
 }
 
 export interface ModalWineDeleteProps extends ModalProps {

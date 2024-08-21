@@ -2,28 +2,22 @@
 import React, { useState, useEffect } from 'react';
 import './page.scss';
 //커스텀훅
-import useWindowWidth from '@/hook/useWindowWidth';
 //이미지
 import rightIcon from '@/assets/icon/right.svg';
-import filterButton from '@/assets/icon/filter_button.svg';
 import Image from 'next/image';
 //프롭스
-import { wineListType, wineDetailType, wineType, wine } from '@/types/WineProps';
+import { wineListType, WineDetailType } from '@/types/WineProps';
 //컴포넌트
-import Card from '@/components/cardwine/Card';
 import Button from '@/components/button/Button';
-import cardwine from '@/components/cardwine/Card';
 import Cardmonthly from '@/components/cardmonthly/CardMonthly';
 import { ModalFilterver } from '@/components/modal/modalfilterver/ModalFilterver'; //ModalFilter를 복사하여 open과 close를 제거하고 새롭게 컴퍼넌트 만듦
-import Input from '@/components/inputcomponent/Input';
 import SearchBar from '@/components/searchbarcomponent/SearchBar';
 //캐러셀
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 //API
-import { searchReviewsAPI } from '@/api/Review';
-import { wineListAPI, wineDetail, bestWine } from '@/api/Wine';
+import { wineListAPI, bestWine } from '@/api/Wine';
 
 const WineListPage: React.FC = () => {
   useEffect(() => {
@@ -45,7 +39,7 @@ const WineListPage: React.FC = () => {
   }, []);
 
   const [wines, setWines] = useState<wineListType[]>([]);
-  const [wineList, setWineList] = useState<wineDetailType[]>([]);
+  const [wineList, setWineList] = useState<WineDetailType[]>([]);
 
   const [isModalOpen, setIsModalOpen] = React.useState(true);
   const handleCloseModal = () => {

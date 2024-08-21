@@ -70,7 +70,8 @@ function ErrorCheck(method: string, apiName: string) {
   return errorMessage[method] || `알 수 없는 에러가 발생하였습니다.;`;
 }
 
-async function CallAPI({ method, query, body = null, apiName }: ApiCallProps) {
+
+async function CallAPI<T>({ method, query, body = null, apiName }: ApiCallProps): Promise<T> {
   // 인스턴스로 변경 부분
   let order = query; // baseURL이 설정되어 있으므로 API_KEY를 제외합니다.
   try {
@@ -85,5 +86,6 @@ async function CallAPI({ method, query, body = null, apiName }: ApiCallProps) {
     throw error;
   }
 }
+
 
 export default CallAPI;

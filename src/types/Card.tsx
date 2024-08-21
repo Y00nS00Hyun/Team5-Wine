@@ -1,5 +1,5 @@
 import imageProp from '@/types/Image';
-import { recentReview, reviewDetailType } from './ReviewProps';
+import { RecentReview, ReviewDetailType } from './ReviewProps';
 
 export interface CardProps {
   image: imageProp;
@@ -7,7 +7,7 @@ export interface CardProps {
   wineDesc: string;
   winePrice: number;
   childeren?: React.ReactNode;
-  review?: recentReview | string;
+  review?: RecentReview | string;
   avgRating?: number | null;
   reviewCount?: number;
 }

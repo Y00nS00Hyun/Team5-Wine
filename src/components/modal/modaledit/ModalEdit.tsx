@@ -7,7 +7,7 @@ import ImageUpload from '@/components/modal/modalwine/imagecomponent/ImageUpload
 import { useEffect, useState } from 'react';
 import { editWine } from '@/api/Wine';
 import { imageProp } from '@/types/Image';
-import { createWineBody, wineDetailType } from '@/types/WineProps';
+import { createWineBody, WineDetailType } from '@/types/WineProps';
 import { wineTypeName } from '@/types/WineProps';
 import './ModalEdit.scss';
 

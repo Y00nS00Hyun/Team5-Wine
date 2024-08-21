@@ -1,4 +1,4 @@
-import { createReviewBody, editReview } from "@/types/ReviewProps";
+import { createReviewBody, editReview, ReviewDetailType } from "@/types/ReviewProps";
 import CallAPI from "./CallApi";
 import { id } from "@/types/Id";
 
@@ -16,7 +16,7 @@ export async function searchReviewsAPI(reviewId: id) {
     let query = `/reviews/${reviewId}`;
     const apiName = "searchreview";
     const body = null;
-    return await CallAPI({method, query, body, apiName});
+    return await CallAPI<ReviewDetailType>({method, query, body, apiName});
 }
 
 export async function editReviewsAPI(prop: editReview, reviewId: id) {

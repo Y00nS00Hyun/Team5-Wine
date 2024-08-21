@@ -1,6 +1,6 @@
 import { id } from '@/types/Id';
 import { imageProp } from '@/types/Image';
-import { ReviewListType, recentReview } from '@/types/ReviewProps';
+import { ReviewListType, RecentReview } from '@/types/ReviewProps';
 import { avgratings } from './AvgRatings';
 import { reviewUser, user } from './UserProps';
 
@@ -14,7 +14,7 @@ export interface wine {
   type: wineTypeName;
 }
 
-export interface wineDetailType {
+export interface WineDetailType {
   id: id;
   name: string;
   region: string;
@@ -22,17 +22,17 @@ export interface wineDetailType {
   price: number;
   avgRating: number;
   reviewCount: number;
-  recentReview: recentReview | string;
+  recentReview: RecentReview | string;
   type: wineTypeName;
   userId: id;
   reviews: [ReviewListType];
   avgRatings: avgratings;
 }
 
-export interface wineMyListType extends wineDetailType {
+export interface wineMyListType extends WineDetailType {
   totalCount: number;
   nextCursor: number;
-  list: wineDetailType[];
+  list: WineDetailType[];
 }
 
 export interface wineListType {
@@ -42,7 +42,7 @@ export interface wineListType {
   image: imageProp;
   avgRating: number;
   reviewCount: number;
-  recentReview: recentReview | null;
+  recentReview: RecentReview | null;
   user: reviewUser;
 }
 

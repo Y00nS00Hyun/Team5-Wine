@@ -5,11 +5,11 @@ import Cardmonthly from '../../components/cardmonthly/CardMonthly';
 import Cardmy from '../../components/cardmy/CardMy';
 import AromaTag from '@/components/aromatag/AromaTag'
 import { wineListAPI, wineDetail } from "@/api/Wine";
-import { winListType, wineDetailType } from "@/types/WineProps";
+import { winListType, WineDetailType } from "@/types/WineProps";
 
 const App: React.FC = () => {
     const [wineList, setWineList] = useState<winListType[]>([]);
-    const [detail, setDetail] = useState<wineDetailType>();
+    const [detail, setDetail] = useState<WineDetailType>();
 
     useEffect(() => {
         const fetchWineList = async () => {

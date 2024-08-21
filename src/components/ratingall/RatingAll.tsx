@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import './RatingAll.scss';
 import { id } from '@/types/Id'
 import { wineDetail } from '@/api/Wine';
-import { wineDetailType } from '@/types/WineProps';
+import { WineDetailType } from '@/types/WineProps';
 import Button from '@/components/button/Button';
 import RatingBar from '@/components/ratingbar/ratingBar';
 import RatingStart from '@/components/ratingstart/RatingStart';

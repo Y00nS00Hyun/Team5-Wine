@@ -5,7 +5,7 @@ import Card from '@/components/carddetail/Card';
 import './page.scss';
 import Image from 'next/image';
 import { bestWine, wineDetail } from '@/api/Wine';
-import { wineDetailType } from '@/types/WineProps';
+import { WineDetailType } from '@/types/WineProps';
 import noreview from '@/assets/icon/noreview.svg';
 import RatingAll from '@/components/ratingall/RatingAll';
 import CardReview from '@/components/cardreview/CardReview';
@@ -17,7 +17,7 @@ interface PageProps {
 
 const App: React.FC<PageProps> = ({ params }) => {
     const id = parseInt(params.id, 10);
-    const [detail, setDetail] = useState<wineDetailType | null>(null);
+    const [detail, setDetail] = useState<WineDetailType | null>(null);
     const [score, setScore] = useState<1 | 2 | 3 | 4 | 5>(1);
     const [isModalOpen, setIsModalOpen] = React.useState(false);
     const [isChanged, setIsChanged] = React.useState(false);

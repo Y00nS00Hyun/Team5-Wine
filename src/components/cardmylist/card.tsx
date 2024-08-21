@@ -8,7 +8,7 @@ import CardCommon from '../cardcommon/Cardcommon';
 import ModalEdit from '@/components/modal/modaledit/ModalEdit';
 import SHDropdown from '../shdropdown/SHDropDown';
 import { id } from '@/types/Id';
-import { wineDetailType } from '@/types/WineProps';
+import { WineDetailType } from '@/types/WineProps';
 import { deleteWine, wineDetail } from '@/api/Wine';
 
 interface cardMylistProps extends CardProps {
@@ -18,7 +18,7 @@ interface cardMylistProps extends CardProps {
 const Card: React.FC<cardMylistProps> = ({ image, wineName, wineDesc, winePrice, wineId }) => {
   const [dropdown, setDropdown] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [wineData, setWineData] = useState<wineDetailType>();
+  const [wineData, setWineData] = useState<WineDetailType>();
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -60,7 +60,7 @@ const Card: React.FC<cardMylistProps> = ({ image, wineName, wineDesc, winePrice,
         ⋮{' '}
       </span>
       <div className="soohyun-dropdown">{dropdown && <SHDropdown items={items} reviewId={wineId} />}</div>
-      <ModalEdit isModalOpen={isModalOpen} closeModal={handleCloseModal} id={wineId} wine={wineData as wineDetailType} showButton={true}/>
+      <ModalEdit isModalOpen={isModalOpen} closeModal={handleCloseModal} id={wineId} wine={wineData as WineDetailType} showButton={true}/>
     </div>
   );
 };

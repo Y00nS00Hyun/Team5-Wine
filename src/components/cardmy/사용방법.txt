@@ -6,7 +6,6 @@ import Cardmy from '../../components/cardmy/Card';
 import { wineListAPI, wineDetail } from "@/api/Wine";
 import { winListType, wineDetailType } from "@/types/WineProps";
 
-
 const App: React.FC = () => {
     const [wineList, setWineList] = useState<winListType[]>([]);
     const [detail, setDetail] = useState<wineDetailType>();

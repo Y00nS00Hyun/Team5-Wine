@@ -1,11 +1,11 @@
-import { Aroma, AromaName } from '@/types/Aroma';
+import { AromaName } from '@/types/Aroma';
 import { id } from '@/types/Id';
 import { imageProp } from '@/types/Image';
 import { nickName } from '@/types/NickName';
-import { wine, wineDetailType, wineType } from './WineProps';
+import { wine } from './WineProps';
 
-export interface recentReview {
-  user: reviewUser;
+export interface RecentReview {
+  user: ReviewUser;
   updatedAt: string;
   createdAt: string;
   aroma: AromaName[];
@@ -16,12 +16,12 @@ export interface recentReview {
   softAcidic: number;
   region: string;
   reviewCount: number;
-  type : string;
+  type: string;
   id: id;
-  content : string;
+  content: string;
 }
 
-export interface reviewDetailType {
+export interface ReviewDetailType {
   id: id;
   rating: number;
   lightBold: number;
@@ -32,11 +32,11 @@ export interface reviewDetailType {
   content: string;
   createdAt: string;
   updatedAt: string;
-  user: reviewUser;
+  user: ReviewUser;
   wineId: number;
 }
 
-export interface reviewUser {
+export interface ReviewUser {
   id: id;
   nickname: nickName;
   image: imageProp;
@@ -47,13 +47,22 @@ export interface ReviewListType {
   rating: number;
   lightBold: number;
   smoothTannic: number;
+
+  /**
+   * 1: 달다, 2: 산미하다, 3: 부드럽다, 4: 텁텁하다
+   *
+   * @type {number}
+   * @memberof ReviewListType
+   * @example
+   * 1: 달다
+   */
   drySweet: number;
   softAcidic: number;
   aroma: AromaName[];
   content: string;
   createdAt: string;
   updatedAt: string;
-  user: reviewUser;
+  user: ReviewUser;
   wine: wine;
 }
 
