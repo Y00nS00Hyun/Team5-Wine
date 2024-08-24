@@ -2,15 +2,23 @@ import { Aroma, AromaName } from '@/types/Aroma';
 import { id } from '@/types/Id';
 import { imageProp } from '@/types/Image';
 import { nickName } from '@/types/NickName';
-import { wine, wineDetailType } from './WineProps';
+import { wine, wineDetailType, wineType } from './WineProps';
 
 export interface recentReview {
-  user: recentReview;
+  user: reviewUser;
   updatedAt: string;
   createdAt: string;
   aroma: AromaName[];
   rating: number;
+  lightBold: number;
+  smoothTannic: number;
+  drySweet: number;
+  softAcidic: number;
+  region: string;
+  reviewCount: number;
+  type : string;
   id: id;
+  content : string;
 }
 
 export interface reviewDetailType {

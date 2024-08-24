@@ -31,20 +31,20 @@ function MyProfile() {
   const { data: session } = useSession();
   const userdata = session?.user.user.user; // 세션에서 사용자 데이터 가져오기
 
-  console.log(userdata);
+  // console.log(userdata);
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    console.log('파일선택옴');
+    // console.log('파일선택옴');
     const token = session?.user.user.accessToken as string;
     if (file && token) {
       const formData = new FormData();
       formData.append('image', file);
-      console.log('파일url받음');
+      // console.log('파일url받음');
       try {
         const response = await ImageAPI(formData);
         setSelectedImage(response.url);
-        console.log('셋완료');
+        // console.log('셋완료');
       } catch (error) {
         console.error('이미지 업로드 실패:', error);
       }
@@ -82,7 +82,7 @@ function changeNickName() {
       try {
         const reviewResoponse = await myReviewsAPI();
         const wineResopose = await myWineAPI();
-        console.log(reviewResoponse);
+        // console.log(wineResopose);
         setMyReviews(reviewResoponse.list);
         setTotalReviewCount(reviewResoponse.totalCount);
         setMyWines(wineResopose.list);

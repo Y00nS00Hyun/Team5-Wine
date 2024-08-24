@@ -17,6 +17,7 @@ import SHDropdown from '@/components/shdropdown/SHDropDown';
 import { ModalReview } from '@/components/modal/modalreview/ModalReview';
 import { ReviewListType, responseReviewBody } from '@/types/ReviewProps'
 import { useSession } from 'next-auth/react';
+import { wineListAPI } from '@/api/Wine';
 
 interface ReviewProps {
     wineName : string;
@@ -58,6 +59,7 @@ const CardReview: React.FC<ReviewProps> = ({ reviewId, handleIsChanged, wineName
     const onClickEdit = (reviewId: id) => {
         console.log(reviewId + " 수정하기");
         handleIsChanged();
+        wineListAPI(5)
         setIsModalOpen(true);
         toggleDropdown();
     }

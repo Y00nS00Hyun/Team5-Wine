@@ -35,7 +35,14 @@ const WineListPage: React.FC = () => {
         const response = await bestWine();
         setWines(response);
         const Response = await wineListAPI(5);
+<<<<<<< HEAD
         setWineList(Response.list);
+=======
+        if(Response) {
+          setWineList(Response.list);
+        }
+
+>>>>>>> 78b8854da01b18a14029bb66d6abbfb49e7546d0
         console.log(Response);
       } catch (error) {
         console.error('Error fetching wine details:', error);
@@ -126,6 +133,7 @@ const WineListPage: React.FC = () => {
               </p>
             </div>
           )}
+<<<<<<< HEAD
           <div className="card-wines">
             {/*카드와인 무한스크롤 */}
 
@@ -133,6 +141,17 @@ const WineListPage: React.FC = () => {
               <CardWine key={list.id} image={list.image} wineName={list.name} wineDesc={list.region} winePrice={list.price} recentReview={list.recentReview} avgRating={list.avgRating} reviewCount={list.reviewCount} />
             ))}
           </div>
+=======
+        </div>
+        <div className="card-wines">
+        {/*카드와인 무한스크롤 */}
+          {/* {wineList.map((list) => (
+            <Card key={list.id} image={list.image}
+             wineName={list.name} wineDesc={list.region}
+              winePrice={list.price} review={list.recentReview || ''}
+               avgRating={list.avgRating} reviewCount={list.reviewCount} />
+          ))} */}
+>>>>>>> 78b8854da01b18a14029bb66d6abbfb49e7546d0
         </div>
       </div>
     </div>
