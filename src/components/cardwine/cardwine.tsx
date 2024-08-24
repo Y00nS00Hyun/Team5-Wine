@@ -1,19 +1,27 @@
 'use client';
 
 import React from 'react';
-import './Card.scss';
+import './cardwine.scss';
 import { CardProps } from '@/types/Card';
 import CardCommon from '../cardcommon/Cardcommon';
 import RatingStart from '@/components/ratingstart/RatingStart';
 import Stars from '@/components/stars/StarsComponent';
 
-const Card: React.FC<CardProps> = ({ image, wineName, wineDesc, winePrice, review = '', avgRating = 0, reviewCount = 0 }) => {
+const CardWine: React.FC<CardProps> = ({ image, wineName, wineDesc, winePrice, recentReview, avgRating = 0, reviewCount = 0 }) => {
   // const avgRating = 4.7;
   // const reviewCount = 47;
-
+  const renderReview = recentReview ? (
+    <div>
+      {recentReview.aroma.join(', ')}
+      {/* {new Date(recentReview.createdAt).toLocaleDateString()} */}
+      {/* {new Date(recentReview.updatedAt).toLocaleDateString()} */}
+    </div>
+  ) : (
+    '후기가 없습니다.'
+  );
   return (
     //<div className="hidden-card">
-    <div className="card">
+    <div className="card-wine">
       <div className="up-card">
         <CardCommon image={image} wineName={wineName} wineDesc={wineDesc} winePrice={winePrice} />
 
@@ -28,11 +36,11 @@ const Card: React.FC<CardProps> = ({ image, wineName, wineDesc, winePrice, revie
       <hr />
       <div className="down-card">
         <div className="review-name">최신 후기</div>
-        <p className="review-detail">{review}</p>
+        <p className="review-detail">{renderReview}</p>
       </div>
     </div>
     //</div>
   );
 };
 
-export default Card;
+export default CardWine;

@@ -1,6 +1,8 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+//scss
 import './page.scss';
+import '@/components/cardwine/cardwine.scss';
 //커스텀훅
 import useWindowWidth from '@/hook/useWindowWidth';
 //이미지
@@ -10,9 +12,9 @@ import Image from 'next/image';
 //프롭스
 import { wineListType, wineDetailType, wineType, wine } from '@/types/WineProps';
 //컴포넌트
-import Card from '@/components/cardwine/Card';
+
 import Button from '@/components/button/Button';
-import cardwine from '@/components/cardwine/Card';
+import cardwine from '@/components/cardwine/cardwine';
 import Cardmonthly from '@/components/cardmonthly/CardMonthly';
 import { ModalFilterver } from '@/components/modal/modalfilterver/ModalFilterver'; //ModalFilter를 복사하여 open과 close를 제거하고 새롭게 컴퍼넌트 만듦
 import Input from '@/components/inputcomponent/Input';
@@ -24,6 +26,7 @@ import Slider from 'react-slick';
 //API
 import { searchReviewsAPI } from '@/api/Review';
 import { wineListAPI, wineDetail, bestWine } from '@/api/Wine';
+import CardWine from '@/components/cardwine/cardwine';
 
 const WineListPage: React.FC = () => {
   useEffect(() => {
@@ -32,7 +35,7 @@ const WineListPage: React.FC = () => {
         const response = await bestWine();
         setWines(response);
         const Response = await wineListAPI(5);
-        setWineList(Response);
+        setWineList(Response.list);
         console.log(Response);
       } catch (error) {
         console.error('Error fetching wine details:', error);
@@ -84,7 +87,7 @@ const WineListPage: React.FC = () => {
   };
 
   const condition1 = 1; //Desktop일 경우(useWindowWidth 커스텀 훅)
-  const condition2 = 1; //검색했을 경우(엔터키 눌렀을때)(useSearch 커스텀 훅)
+  const condition2 = false; //검색했을 경우(엔터키 눌렀을때)(useSearch 커스텀 훅)
 
   return (
     <div className="page">
@@ -103,7 +106,7 @@ const WineListPage: React.FC = () => {
         {condition1 && (
           <div className="desktop-modal">
             {/* <ModalFilter /> */}
-            <ModalFilterver setWines={setWineList} showButton={false} />
+            {/* <ModalFilterver setWines={setWineList} showButton={false} /> */}
             {/*아래 버튼 비활성화되게 수정한 모달 필터  */}
             <Button type="submit" text="와인 등록하기" />
           </div>
@@ -123,13 +126,13 @@ const WineListPage: React.FC = () => {
               </p>
             </div>
           )}
-        </div>
-        <div className="card-wines"></div>
-        {/*카드와인 무한스크롤 */}
-        <div>
-          {wineList.map((list) => (
-            <Card image={list.image} wineName={list.name} wineDesc={list.region} winePrice={list.price} review={list.recentReview || ''} avgRating={list.avgRating} reviewCount={list.reviewCount} />
-          ))}
+          <div className="card-wines">
+            {/*카드와인 무한스크롤 */}
+
+            {wineList.map((list) => (
+              <CardWine key={list.id} image={list.image} wineName={list.name} wineDesc={list.region} winePrice={list.price} recentReview={list.recentReview} avgRating={list.avgRating} reviewCount={list.reviewCount} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
