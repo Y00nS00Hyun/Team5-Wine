@@ -98,7 +98,7 @@ const CardReview: React.FC<ReviewProps> = ({ reviewId, handleIsChanged, wineName
     <>
       {detail && (
         <div className="soohyun-card">
-          <div className="soohyun-header">
+          {/* <div className="soohyun-header">
             <div className="soohyun-profile">
               {detail.user.image ? <img src={detail.user.image} className="soohyun-image" /> : <Image src={defaultprofile} alt="와인아이콘" className="soohyun-image" />}
               <span className="soohyun-nickname-date">
@@ -121,9 +121,9 @@ const CardReview: React.FC<ReviewProps> = ({ reviewId, handleIsChanged, wineName
           <div className="soohyun-content">{detail.content}</div>
           <div className="soohyun-taste">
             <WineTasteSlide tasteValue={[detail.lightBold, detail.smoothTannic, detail.drySweet, detail.softAcidic]} SlideMode={SlideMode.VIEW} />
-          </div>
-          <div className="soohyun-dropdown">{dropdown && <SHDropdown items={items} reviewId={reviewId} />}</div>
-          <ModalReview isModalOpen={isModalOpen} closeModal={handleCloseModal} wineName={wineName} wineId={detail?.wineId} ReviewData={convertReviewListToResponseBody(detail, detail?.wineId)} showButton={true} />
+          </div> */}
+          {/* <div className="soohyun-dropdown">{dropdown && <SHDropdown items={items} reviewId={reviewId} />}</div> */}
+          {/* <ModalReview isModalOpen={isModalOpen} closeModal={handleCloseModal} wineName={wineName} wineId={detail?.wineId} ReviewData={convertReviewListToResponseBody(detail, detail?.wineId)} showButton={true} /> */}
         </div>
       )}
     </>
