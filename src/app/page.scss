@@ -6,8 +6,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: auto;
-  margin: 0 20px;
+  width: 100%;
   margin-bottom: 109px;
 
   .header {
@@ -15,13 +14,15 @@
     opacity: 0;
     transform: translateY(-50px);
     transition: opacity 1s ease-out, transform 1s ease-out;
+    width: 100%;
     &.show {
       opacity: 1;
       transform: translateY(0);
     }
 
     img {
-      height: 535px;
+      width: 100%;
+      height: auto;
     }
   }
 
@@ -36,26 +37,6 @@
     &.show {
       opacity: 1;
       transform: translateY(0);
-    }
-
-    @include tablet {
-    }
-
-    @include mobile {
-      .recommended-wines {
-        background-image: url('../assets/png/sm_02.png');
-        background-size: cover;
-      }
-
-      .wine-details {
-        background-image: url('../assets/png/sm_03.png');
-        background-size: cover;
-      }
-
-      .reviews {
-        background-image: url('../assets/png/sm_04.png');
-        background-size: cover;
-      }
     }
 
     .section {

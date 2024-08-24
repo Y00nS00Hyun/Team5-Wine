@@ -5,11 +5,10 @@ import { deleteWine } from '@/api/Wine';
 import { ModalWineDeleteProps } from '@/types/ModalProps';
 import './ModalWineDelete.scss';
 
-export default function ModalDeleteWine({ isModalOpen, closeModal, id }: ModalWineDeleteProps) {
+export default function ModalDeleteWine({ isModalOpen, closeModal, wineId }: ModalWineDeleteProps) {
   const handleDeleteWine = async () => {
     try {
-      console.log(id);
-      await deleteWine(id);
+      await deleteWine(wineId);
       // setWines(wines.filter((wine) => wine.id !== id));
       alert('와인이 삭제되었습니다.');
       closeModal();

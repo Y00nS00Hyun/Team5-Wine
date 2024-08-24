@@ -13,7 +13,7 @@ import { usePathname } from 'next/navigation';
 
 const GNB: React.FC = () => {
   const session = useSession();
-  const userData = session.data?.user.user.user;
+  const userData = session.data?.user.user;
 
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null); // 드롭다운과 아이콘을 감싸는 div를 참조
