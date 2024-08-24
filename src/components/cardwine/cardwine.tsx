@@ -42,5 +42,5 @@ const CardWine: React.FC<CardProps> = ({ image, wineName, wineDesc, winePrice, r
     //</div>
   );
 };
-
+//
 export default CardWine;
