@@ -16,13 +16,13 @@ export interface ModalWineEditProps extends ModalProps {
 }
 
 export interface ModalWineDeleteProps extends ModalProps {
-  id: number;
+  wineId: number;
   // setWines: React.Dispatch<React.SetStateAction<wine[] | undefined>>;
   // wines: wine[];
 }
 
 export interface ModalReviewDeleteProps extends ModalProps {
-  id: number;
+  reviewId: number;
   // setReviews: React.Dispatch<React.SetStateAction<wine[] | undefined>>;
   // reviews: wine[];
 }
