@@ -1,42 +1,15 @@
-// 'use client';
-// import type { Metadata } from 'next';
-// import { Inter } from 'next/font/google';
-// import './globals.scss';
-// import './reset.scss';
-// import Provider from '@/components/provider/Provider';
-// import GNB from '@/components/gnb/GNB';
-// import { getServerSession } from 'next-auth';
-// import { usePathname } from 'next/navigation';
-// const inter = Inter({ subsets: ['latin'] });
-
-// export default function RootLayout({
-//   children,
-// }: Readonly<{
-//   children: React.ReactNode;
-// }>) {
-//   const pathname = usePathname();
-//   const isAuthPage = pathname === '/login' || pathname === '/signup' || pathname === '/';
-//   return (
-//     <html lang="en">
-//       <body className={`${inter.className} ${isAuthPage ? 'auth-background' : ''}`}>
-//         <Provider>
-//           {!isAuthPage && <GNB />}
-//           {children}
-//         </Provider>
-//       </body>
-//     </html>
-//   );
-// }
-
 'use client';
-import type { Metadata } from 'next';
+
 import { Inter } from 'next/font/google';
+import { usePathname } from 'next/navigation';
 import './globals.scss';
 import './reset.scss';
 import Provider from '@/components/provider/Provider';
 import GNB from '@/components/gnb/GNB';
-import { usePathname } from 'next/navigation';
+
 const inter = Inter({ subsets: ['latin'] });
+
+const AUTH_ONLY_PATHS = new Set(['/login', '/signup']);
 
 export default function RootLayout({
   children,
@@ -44,13 +17,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
-  const isAuthPage = pathname === '/login' || pathname === '/signup';
+  const isAuthPage = AUTH_ONLY_PATHS.has(pathname);
+  const showBackground = isAuthPage || pathname === '/';
 
   return (
     <html lang="en">
-      <body className={`${inter.className} ${isAuthPage || pathname === '/' ? 'auth-background' : ''}`}>
+      <body className={`${inter.className} ${showBackground ? 'auth-background' : ''}`}>
         <Provider>
-          {pathname !== '/login' && pathname !== '/signup' && <GNB />}
+          {!isAuthPage && <GNB />}
           {children}
         </Provider>
       </body>

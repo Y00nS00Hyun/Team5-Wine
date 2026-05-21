@@ -4,13 +4,16 @@ import Image from 'next/image';
 import wineLogo from '@/assets/icon/wineLogo.svg';
 import Input from '@/components/inputcomponent/Input';
 import Button from '@/components/button/Button';
-import { signUpAPI, signInAPI } from '@/api/Auth';
-import { loginAndStoreTokens } from '@/utils/authutils';
-import { redirect, useRouter } from 'next/navigation';
+import { signUpAPI } from '@/api/Auth';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import './SignUpForm.scss';
-import { getSession, signIn, useSession } from 'next-auth/react';
+import { getSession, signIn } from 'next-auth/react';
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PASSWORD_REGEX = /^[a-zA-Z0-9!@#$%^&*]*$/;
+
 export default function SignupForm() {
   const router = useRouter();
 
@@ -19,12 +22,10 @@ export default function SignupForm() {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const session = useSession();
 
   const validateEmail = (value: string) => {
     if (!value) return '이메일은 필수 입력입니다.';
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value)) return '이메일 형식으로 작성해 주세요.';
+    if (!EMAIL_REGEX.test(value)) return '이메일 형식으로 작성해 주세요.';
     return '';
   };
 
@@ -37,8 +38,7 @@ export default function SignupForm() {
   const validatePassword = (value: string) => {
     if (!value) return '비밀번호는 필수 입력입니다.';
     if (value.length < 8) return '비밀번호는 최소 8자 이상입니다.';
-    const passwordRegex = /^[a-zA-Z0-9!@#$%^&*]*$/;
-    if (!passwordRegex.test(value)) return '비밀번호는 숫자, 영문, 특수문자로만 가능합니다.';
+    if (!PASSWORD_REGEX.test(value)) return '비밀번호는 숫자, 영문, 특수문자로만 가능합니다.';
     return '';
   };
 
@@ -50,69 +50,67 @@ export default function SignupForm() {
 
   const handleEmailChange = (value: string) => {
     setEmail(value);
-    const errorMessage = validateEmail(value);
-    setErrors((prev) => ({ ...prev, email: errorMessage }));
+    setErrors((prev) => ({ ...prev, email: validateEmail(value) }));
   };
 
   const handleNicknameChange = (value: string) => {
     setNickname(value);
-    const errorMessage = validateNickname(value);
-    setErrors((prev) => ({ ...prev, nickname: errorMessage }));
+    setErrors((prev) => ({ ...prev, nickname: validateNickname(value) }));
   };
 
   const handlePasswordChange = (value: string) => {
     setPassword(value);
-    const errorMessage = validatePassword(value);
-    setErrors((prev) => ({ ...prev, password: errorMessage }));
+    setErrors((prev) => ({ ...prev, password: validatePassword(value) }));
   };
 
   const handleConfirmPasswordChange = (value: string) => {
     setPasswordConfirmation(value);
-    const errorMessage = validateConfirmPassword(value);
-    setErrors((prev) => ({ ...prev, passwordConfirmation: errorMessage }));
+    setErrors((prev) => ({ ...prev, passwordConfirmation: validateConfirmPassword(value) }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const hasErrors = Object.values(errors).some((error) => error);
-    if (!hasErrors) {
-      try {
-        const userData = {
-          email: email,
-          nickname: nickname,
-          password: password,
-          passwordConfirmation: passwordConfirmation,
-        };
-        console.log('전송할 데이터:', userData);
 
-        const response = await signUpAPI(userData);
-
-        if (response.status === 400) {
-          alert('중복된 이메일입니다.');
-          return;
-        }
-
-        alert('회원가입이 완료되었습니다');
-
-        const signInResponse = await signIn('Credentials', { email: encodeURIComponent(email), password, redirect: false });
-
-        if (signInResponse?.error) {
-          alert('로그인 중 오류가 발생했습니다.');
-          return;
-        }
-
-        const session2 = await getSession();
-        console.log('출력', session2);
-
-        if (session2?.user.user) {
-          router.push('/');
-        }
-      } catch (error) {
-        console.error('회원가입 중 오류가 발생했습니다:', error);
-        alert('회원가입 중 오류가 발생했습니다. 다시 시도해 주세요.');
-      }
-    } else {
+    const nextErrors = {
+      email: validateEmail(email),
+      nickname: validateNickname(nickname),
+      password: validatePassword(password),
+      passwordConfirmation: validateConfirmPassword(passwordConfirmation),
+    };
+    setErrors(nextErrors);
+    if (Object.values(nextErrors).some(Boolean)) {
       alert('입력값을 다시 확인해주세요');
+      return;
+    }
+
+    try {
+      const response = await signUpAPI({ email, nickname, password, passwordConfirmation });
+
+      if (response?.status === 400) {
+        alert('중복된 이메일입니다.');
+        return;
+      }
+
+      alert('회원가입이 완료되었습니다');
+
+      const signInResponse = await signIn('Credentials', {
+        email: encodeURIComponent(email),
+        password,
+        redirect: false,
+      });
+
+      if (signInResponse?.error) {
+        alert('로그인 중 오류가 발생했습니다.');
+        return;
+      }
+
+      const session = await getSession();
+      if (session?.user.user) {
+        router.push('/');
+      }
+    } catch (error) {
+      console.error('회원가입 중 오류가 발생했습니다:', error);
+      alert('회원가입 중 오류가 발생했습니다. 다시 시도해 주세요.');
     }
   };
 

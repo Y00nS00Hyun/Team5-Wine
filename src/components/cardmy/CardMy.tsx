@@ -7,11 +7,9 @@ import { deleteReviewsAPI } from '@/api/Review';
 import SHDropdown from '../shdropdown/SHDropDown';
 import { ModalReview } from '../modal/modalreview/ModalReview';
 import { ReviewListType } from '@/types/ReviewProps';
-import { id } from '@/types/Id';
 
 const Cardmy: React.FC<ReviewListType> = (prop) => {
-  const stars = Math.round(prop.rating);
-  const formattedDate = new Date(prop.createdAt).toISOString().split('T')[0]; // 날짜를 YYYY-MM-DD 형식으로 변환
+  const formattedDate = new Date(prop.createdAt).toISOString().split('T')[0];
 
   const [dropdown, setDropdown] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -38,16 +36,13 @@ const Cardmy: React.FC<ReviewListType> = (prop) => {
   };
 
   const onClickEdit = () => {
-    console.log(' 수정하기');
     setIsModalOpen(true);
     toggleDropdown();
   };
 
   const onClickDelete = async () => {
-    console.log(' 삭제하기');
     try {
       await deleteReviewsAPI(prop.id);
-      console.log(' 삭제 성공');
       toggleDropdown();
     } catch (error) {
       console.error('리뷰 삭제 중 오류 발생', error);

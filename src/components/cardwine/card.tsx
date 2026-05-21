@@ -7,14 +7,8 @@ import CardCommon from '../cardcommon/cardcommon';
 import RatingStart from '@/components/ratingstart/RatingStart';
 import Stars from '@/components/stars/StarsComponent';
 
-const Card: React.FC<CardProps> = ({ image, wineName, wineDesc, winePrice, review = '', avgRating=0, reviewCount = 0 }) => {
-  // const avgRating = 4.7;
-  // const reviewCount = 47;
-
-  console.log(image, wineName, wineDesc, winePrice, review, avgRating, reviewCount)
-
+const Card: React.FC<CardProps> = ({ image, wineName, wineDesc, winePrice, review = '', avgRating = 0, reviewCount = 0 }) => {
   return (
-    //<div className="hidden-card">
     <div className="card">
       <div className="up-card">
         <CardCommon image={image} wineName={wineName} wineDesc={wineDesc} winePrice={winePrice} />
@@ -33,7 +27,6 @@ const Card: React.FC<CardProps> = ({ image, wineName, wineDesc, winePrice, revie
         <p className="review-detail">{review}</p>
       </div>
     </div>
-    //</div>
   );
 };
 

@@ -1,26 +1,23 @@
 'use client';
 
-import Input from '@/components/inputcomponent/Input';
-import '@/components/slidecomponent/SlideComponent.scss';
-import { useEffect, useState, useMemo } from 'react';
-import '@/app/myprofile/page.scss';
-import Button from '@/components/button/Button';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Input from '@/components/inputcomponent/Input';
+import Button from '@/components/button/Button';
 import Cardmy from '@/components/cardmy/CardMy';
-import defaultprofile from '@/assets/icon/defaultprofile.webp';
-import { ImageAPI } from '@/api/Image';
-import { ReviewListType } from '@/types/ReviewProps';
-import { useSession } from 'next-auth/react';
-import { editmyDataAPI, myReviewsAPI, myWineAPI } from '@/api/User';
-import { wineDetailType } from '@/types/WineProps';
 import Card from '@/components/cardmylist/card';
+import defaultprofile from '@/assets/icon/defaultprofile.webp';
+import { useSession } from 'next-auth/react';
+import { ImageAPI } from '@/api/Image';
+import { editmyDataAPI, myReviewsAPI, myWineAPI } from '@/api/User';
+import { ReviewListType } from '@/types/ReviewProps';
+import { wineDetailType } from '@/types/WineProps';
+import '@/components/slidecomponent/SlideComponent.scss';
+import '@/app/myprofile/page.scss';
 
 function MyProfile() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [inputNickName, setInputName] = useState<string>("");
+  const [inputNickName, setInputName] = useState<string>('');
   const [totalReviewCount, setTotalReviewCount] = useState<number>(0);
   const [totalWineCount, setTotalWineCount] = useState<number>(0);
 
@@ -29,66 +26,49 @@ function MyProfile() {
   const [nowMenu, setNowMenu] = useState<'wine' | 'review'>('review');
 
   const { data: session } = useSession();
-  const userdata = session?.user.user.user; // 세션에서 사용자 데이터 가져오기
-
-  // console.log(userdata);
+  const userdata = session?.user.user.user;
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    // console.log('파일선택옴');
-    const token = session?.user.user.accessToken as string;
-    if (file && token) {
-      const formData = new FormData();
-      formData.append('image', file);
-      // console.log('파일url받음');
-      try {
-        const response = await ImageAPI(formData);
-        setSelectedImage(response.url);
-        // console.log('셋완료');
-      } catch (error) {
-        console.error('이미지 업로드 실패:', error);
-      }
+    const token = session?.user.user.accessToken as string | undefined;
+    if (!file || !token) return;
+
+    const formData = new FormData();
+    formData.append('image', file);
+    try {
+      const response = await ImageAPI(formData);
+      setSelectedImage(response.url);
+    } catch (error) {
+      console.error('이미지 업로드 실패:', error);
     }
   };
 
   const handleMenu = () => {
-    if (nowMenu === 'review') {
-      setNowMenu('wine');
-    } else {
-      setNowMenu('review');
-    }
+    setNowMenu((prev) => (prev === 'review' ? 'wine' : 'review'));
   };
 
-function changeNickName() {
-  if(session?.user.user.user.image) {
-    const reqbody = {
-      image : selectedImage || userdata.image,
-      nickname : inputNickName || userdata.nickname,
+  const changeNickName = async () => {
+    if (!userdata) return;
+    try {
+      await editmyDataAPI({
+        image: selectedImage || userdata.image,
+        nickname: inputNickName || userdata.nickname,
+      });
+    } catch (error) {
+      console.error('프로필 수정 실패:', error);
     }
-    return async() => {
-      console.log("프로필수정");
-      try {
-        await editmyDataAPI(reqbody);
-      }
-      catch (error) {
-        console.log(error);
-      }
-  }
-}
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const reviewResoponse = await myReviewsAPI();
-        const wineResopose = await myWineAPI();
-        // console.log(wineResopose);
-        setMyReviews(reviewResoponse.list);
-        setTotalReviewCount(reviewResoponse.totalCount);
-        setMyWines(wineResopose.list);
-        setTotalWineCount(wineResopose.totalCount);
+        const [reviewResponse, wineResponse] = await Promise.all([myReviewsAPI(), myWineAPI()]);
+        setMyReviews(reviewResponse.list);
+        setTotalReviewCount(reviewResponse.totalCount);
+        setMyWines(wineResponse.list);
+        setTotalWineCount(wineResponse.totalCount);
       } catch (error) {
-        console.log(error);
+        console.error('마이페이지 데이터 로딩 실패:', error);
       }
     };
     fetchData();
@@ -96,24 +76,29 @@ function changeNickName() {
 
   return (
     <div className="myprofile-layer">
-      {/* 전체 데이터 */}
       <div className="user-profile-data">
-        {/* 사용자 프로필 및 닉네임 수정 창 */}
         <div className="user-data">
           <div className="user-image-layer">
             <label className="user-image-edit" htmlFor="user-image-input">
-              {
-                userdata?.image ? (
-                  <Image src={selectedImage ? selectedImage : userdata.image} 
-                  className="user-image" alt="유저프로필" width={164} height={164}  />
-                ) :
-                (
-                  <Image src={defaultprofile} className="user-image"  width={164} height={164} 
-                  alt="유저프로필" />
-                )
-              }
-              <input id="user-image-input" type="file" className="user-image-input" 
-              accept='image/*' onChange={handleFileChange} style={{display: "none"}} />
+              {userdata?.image ? (
+                <Image
+                  src={selectedImage ? selectedImage : userdata.image}
+                  className="user-image"
+                  alt="유저프로필"
+                  width={164}
+                  height={164}
+                />
+              ) : (
+                <Image src={defaultprofile} className="user-image" width={164} height={164} alt="유저프로필" />
+              )}
+              <input
+                id="user-image-input"
+                type="file"
+                className="user-image-input"
+                accept="image/*"
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+              />
             </label>
             <div className="user-data-layer">
               <p className="user-nickname">{userdata?.nickname}</p>
@@ -122,31 +107,30 @@ function changeNickName() {
           </div>
           <div className="user-edit">
             <div className="edit-input">
-              <Input inputname="닉네임" placeholder={userdata?.nickname} defaultValue="" 
-              onChange={(e) => setInputName(e.target.value)} />
+              <Input
+                inputname="닉네임"
+                placeholder={userdata?.nickname}
+                defaultValue=""
+                onChange={(e) => setInputName(e.target.value)}
+              />
             </div>
             <div className="edit-button-layer">
-              <Button text="변경하기" onClick={changeNickName()} />
+              <Button text="변경하기" onClick={changeNickName} />
             </div>
           </div>
         </div>
       </div>
       <div className="my-content">
-        {/* 사용자 작성 후기와 와인 보여줄창 */}
         <div className="content-layer">
-          {/* 내가 쓴 후기, 내가 등록한 와인 */}
           <div className="content-menu">
-            <p className={`content-menu-title ${nowMenu === 'review' ? '' : 'unactive'}`} 
-            onClick={handleMenu}>
+            <p className={`content-menu-title ${nowMenu === 'review' ? '' : 'unactive'}`} onClick={handleMenu}>
               내가 쓴 후기
             </p>
-            <p className={`content-menu-title ${nowMenu === 'wine' ? '' : 'unactive'}`} 
-            onClick={handleMenu}>
+            <p className={`content-menu-title ${nowMenu === 'wine' ? '' : 'unactive'}`} onClick={handleMenu}>
               내가 등록한 와인
             </p>
           </div>
-          <p className="total-count">{`총 ${(nowMenu === "review" ? totalReviewCount : 
-            totalWineCount)}개`}</p>
+          <p className="total-count">{`총 ${nowMenu === 'review' ? totalReviewCount : totalWineCount}개`}</p>
         </div>
         <div className="content">
           {nowMenu === 'review' ? (
@@ -161,10 +145,17 @@ function changeNickName() {
                 <p>등록된게 없습니다.</p>
               </div>
             )
-          ) : myReviews.length > 0 ? (
+          ) : myWines.length > 0 ? (
             <div className="content-item">
               {myWines.map((wine) => (
-                <Card key={wine.id} image={wine.image} wineName={wine.name} wineDesc={wine.region} winePrice={wine.price} wineId={wine.id} />
+                <Card
+                  key={wine.id}
+                  image={wine.image}
+                  wineName={wine.name}
+                  wineDesc={wine.region}
+                  winePrice={wine.price}
+                  wineId={wine.id}
+                />
               ))}
             </div>
           ) : (
@@ -172,9 +163,6 @@ function changeNickName() {
               <p>등록된게 없습니다.</p>
             </div>
           )}
-
-          {/* 리뷰목록, 와인목록 */}
-          {/* 반복문을 통해 유저 아이디를 통해 가지고온 데이터 */}
         </div>
       </div>
     </div>

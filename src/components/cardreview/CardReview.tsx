@@ -5,19 +5,16 @@ import { useEffect, useState } from 'react';
 import './CardReview.scss';
 import Image from 'next/image';
 import { AromaTag } from '@/components/aromatag/AromaTag';
-import { Aroma, AromaName } from '@/types/Aroma';
-import { reviewDetailType } from '@/types/ReviewProps'
+import { reviewDetailType, responseReviewBody } from '@/types/ReviewProps';
 import { createAromaList } from '@/utils/aromautils';
 import { SlideMode } from '@/types/SlideOption';
-import { id } from '@/types/Id'
+import { id } from '@/types/Id';
 import WineTasteSlide from '@/components/wineTaste/WineTasteSlide';
-import { searchReviewsAPI, deleteReviewsAPI } from '@/api/Review'
-import defaultprofile from '@/assets/icon/defaultprofile.webp'
+import { searchReviewsAPI, deleteReviewsAPI } from '@/api/Review';
+import defaultprofile from '@/assets/icon/defaultprofile.webp';
 import SHDropdown from '@/components/shdropdown/SHDropDown';
 import { ModalReview } from '@/components/modal/modalreview/ModalReview';
-import { ReviewListType, responseReviewBody } from '@/types/ReviewProps'
 import { useSession } from 'next-auth/react';
-import { wineListAPI } from '@/api/Wine';
 
 interface ReviewProps {
     wineName : string;
@@ -56,19 +53,15 @@ const CardReview: React.FC<ReviewProps> = ({ reviewId, handleIsChanged, wineName
         setDropdown(!dropdown);
     };
 
-    const onClickEdit = (reviewId: id) => {
-        console.log(reviewId + " 수정하기");
+    const onClickEdit = (_reviewId: id) => {
         handleIsChanged();
-        wineListAPI(5)
         setIsModalOpen(true);
         toggleDropdown();
     }
 
     const onClickDelete = async (reviewId: id) => {
-        console.log(reviewId + " 삭제하기");
         try {
             await deleteReviewsAPI(reviewId);
-            console.log(reviewId + " 삭제 성공");
             handleIsChanged();
             setDetail(undefined);
             toggleDropdown();

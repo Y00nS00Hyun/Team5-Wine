@@ -7,7 +7,7 @@ import '@/components/modal/modalreview/ModalReview.scss';
 import WineTasteSlide from '@/components/wineTaste/WineTasteSlide';
 import { AromaTag } from '@/components/aromatag/AromaTag';
 import { responseReviewBody } from '@/types/ReviewProps';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { createAromaList } from '@/utils/aromautils';
 import { AromaName } from '@/types/Aroma';
 import { SlideMode } from '@/types/SlideOption';
@@ -22,11 +22,12 @@ interface ModalReviewProps extends ModalProps {
 
 export function ModalReview({ isModalOpen, closeModal, wineName, wineId, ReviewData }: ModalReviewProps) {
   const [rating, setRating] = useState(ReviewData?.rating || 0);
-  const [slideValue, setSlideValue] = useState<number[]>(ReviewData ? [ReviewData.lightBold, ReviewData.smoothTannic, ReviewData.drySweet, ReviewData.softAcidic] : [0, 0, 0, 0]);
+  const [slideValue, setSlideValue] = useState<number[]>(
+    ReviewData ? [ReviewData.lightBold, ReviewData.smoothTannic, ReviewData.drySweet, ReviewData.softAcidic] : [0, 0, 0, 0]
+  );
   const [selectedAromas, setSelectedAromas] = useState<AromaName[]>(ReviewData?.aroma || []);
   const [reviewContent, setReviewContent] = useState(ReviewData?.content || '');
-  const [aromas, setAromas] = useState<AromaName[]>(ReviewData?.aroma || []);
-  const aromaList = createAromaList(aromas);
+  const aromaList = createAromaList(ReviewData?.aroma || []);
 
   const handleRatingChange = useCallback((newRating: number) => {
     setRating(newRating);
@@ -41,43 +42,38 @@ export function ModalReview({ isModalOpen, closeModal, wineName, wineId, ReviewD
   }, []);
 
   const postReview = useCallback(() => {
-    console.log('리뷰등록실행');
-    // console.log(rating, slideValue, selectedAromas, reviewContent, wineId);
     if (slideValue && reviewContent) {
-      const requestBody = {
-        rating: rating,
+      addReviewsAPI({
+        rating,
         lightBold: slideValue[0],
         smoothTannic: slideValue[1],
         drySweet: slideValue[2],
         softAcidic: slideValue[3],
         aroma: selectedAromas,
         content: reviewContent,
-        wineId: wineId,
-      };
-      console.log(requestBody);
-      addReviewsAPI(requestBody);
+        wineId,
+      });
     }
     closeModal();
-  }, [rating, slideValue, reviewContent, selectedAromas, wineId]);
+  }, [rating, slideValue, reviewContent, selectedAromas, wineId, closeModal]);
 
   const patchReview = useCallback(() => {
-    console.log('리뷰수정실행');
-
     if (ReviewData?.id && slideValue && reviewContent) {
-      const requestBody = {
-        rating: rating,
-        lightBold: slideValue[0],
-        smoothTannic: slideValue[1],
-        drySweet: slideValue[2],
-        softAcidic: slideValue[3],
-        aroma: selectedAromas,
-        content: reviewContent,
-      };
-      console.log(requestBody);
-      editReviewsAPI(requestBody, ReviewData.id);
+      editReviewsAPI(
+        {
+          rating,
+          lightBold: slideValue[0],
+          smoothTannic: slideValue[1],
+          drySweet: slideValue[2],
+          softAcidic: slideValue[3],
+          aroma: selectedAromas,
+          content: reviewContent,
+        },
+        ReviewData.id
+      );
     }
     closeModal();
-  }, [rating, slideValue, reviewContent, selectedAromas]);
+  }, [rating, slideValue, reviewContent, selectedAromas, ReviewData?.id, closeModal]);
 
   return (
     <div className="modal-layer">
@@ -95,7 +91,6 @@ export function ModalReview({ isModalOpen, closeModal, wineName, wineId, ReviewD
         {ReviewData ? (
           <div className="review-content">
             <div className="review-title">
-              {/* <p>와인이름과 별점 후기용</p> */}
               <div className="a">
                 <div className="b">
                   <Image src={wineIcon} alt="와인아이콘" className="wine-icon" />
@@ -125,7 +120,6 @@ export function ModalReview({ isModalOpen, closeModal, wineName, wineId, ReviewD
         ) : (
           <div className="review-content">
             <div className="review-title">
-              {/* <p>와인이름과 별점 후기용</p> */}
               <div className="a">
                 <div className="b">
                   <Image src={wineIcon} alt="와인아이콘" className="wine-icon" />

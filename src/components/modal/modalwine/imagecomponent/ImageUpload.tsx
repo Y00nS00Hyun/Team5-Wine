@@ -1,29 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './ImageUpload.scss';
 import photo from '@/assets/icon/photo.svg';
 import Image from 'next/image';
-import imageProp from "@/types/Image";
+import imageProp from '@/types/Image';
 import { ImageAPI } from '@/api/Image';
 
-function ImageUpload({ onImageUpload, wineImage }: { onImageUpload: (file: imageProp) => void, wineImage?:string | null}) {
+function ImageUpload({ onImageUpload, wineImage }: { onImageUpload: (file: imageProp) => void; wineImage?: string | null }) {
   const [userImage, setUserImage] = useState<imageProp>();
 
   const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    
-    if (file) {
-      const imgForm = new FormData();
-      imgForm.append("image", file);
-      // setImage(URL.createObjectURL(file));
-      
-      try {
-        const fileUrl = await ImageAPI(imgForm);
-        setUserImage(fileUrl.url);
-        onImageUpload(fileUrl.url);
-      }
-      catch (error) { 
-        console.log(error);
-      }
+    if (!file) return;
+
+    const imgForm = new FormData();
+    imgForm.append('image', file);
+
+    try {
+      const fileUrl = await ImageAPI(imgForm);
+      setUserImage(fileUrl.url);
+      onImageUpload(fileUrl.url);
+    } catch (error) {
+      console.error('이미지 업로드 실패:', error);
     }
   };
 

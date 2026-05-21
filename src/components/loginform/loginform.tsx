@@ -1,7 +1,7 @@
+'use client';
+
 import './loginform.scss';
 import React, { useState } from 'react';
-import { signInAPI } from '@/api/Auth';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { signIn } from 'next-auth/react';
@@ -11,35 +11,36 @@ import OAuthButton from '../oauthbuttoncomponent/OAuthButton';
 import Logo from '@/assets/icon/wineLogo.svg';
 import googleLogo from '@/assets/icon/googleLogo.svg';
 import kakaoLogo from '@/assets/icon/kakaoLogo.svg';
-import { signInRequestBody, signResponse } from '@/types/AuthProps';
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const LoginForm: React.FC = () => {
-  const router = useRouter();
-  const [email, setEmail] = useState('gwangho@gwangho.com');
-  const [password, setPassword] = useState('12345678');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSignIn = () => {
-    console.log(email, password);
-    // TODO: validation 코드 추가
+  const handleSignIn = async () => {
+    if (!EMAIL_REGEX.test(email)) {
+      setError('이메일 형식으로 작성해 주세요.');
+      return;
+    }
+    if (password.length < 8) {
+      setError('비밀번호는 최소 8자 이상입니다.');
+      return;
+    }
+    setError('');
 
-    signIn('Credentials', { email: encodeURIComponent(email), password });
+    const res = await signIn('Credentials', {
+      email: encodeURIComponent(email),
+      password,
+      redirect: false,
+    });
 
-    // try {
-    //   e.preventDefault();
-    //   const user: signInRequestBody = { email, password };
-    //   const response = await signInAPI(user);
-    //   // onLoginSuccess(response.user.image.url, response.accessToken, response.refreshToken); // 로그인 성공 시 이미지 및 토큰 전달
-    //   localStorage.setItem('accessToken', response.accessToken);
-    //   localStorage.setItem('refreshToken', response.refreshToken);
-    //   localStorage.setItem('User', JSON.stringify(response.user));
-    //   // localStorage.removeItem('accessToken');
-    //   // localStorage.removeItem('refreshToken');
-    //   // localStorage.removeItem('User');
-    //   router.push('/');
-    //   console.log(response.user);
-    // } catch (error) {
-    //   console.error('Error');
-    // }
+    if (res?.error) {
+      setError('이메일 또는 비밀번호가 올바르지 않습니다.');
+    } else if (res?.ok) {
+      window.location.assign('/');
+    }
   };
 
   return (
@@ -50,15 +51,23 @@ const LoginForm: React.FC = () => {
             <Image src={Logo} alt="wine" width={104} height={30} />
           </Link>
         </div>
-        <Input type="email" placeholder="이메일 입력" inputname="이메일" defaultValue={email} onChange={(e) => setEmail(e.target.value)} />
-        <Input type="password" placeholder="비밀번호 입력" inputname="비밀번호" defaultValue={password} onChange={(e) => setPassword(e.target.value)} />
-        <p className="fake-pw-finder">비밀번호를 잊으셨나요?</p>
-        <Button
-          text="로그인"
-          onClick={() => {
-            handleSignIn();
-          }}
+        <Input
+          type="email"
+          placeholder="이메일 입력"
+          inputname="이메일"
+          defaultValue={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
+        <Input
+          type="password"
+          placeholder="비밀번호 입력"
+          inputname="비밀번호"
+          defaultValue={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {error && <p className="error-message">{error}</p>}
+        <p className="fake-pw-finder">비밀번호를 잊으셨나요?</p>
+        <Button text="로그인" onClick={handleSignIn} />
       </div>
       <OAuthButton logo={googleLogo} text="google로 시작하기" onClick={() => signIn('google')} />
       <OAuthButton logo={kakaoLogo} text="Kakao로 시작하기" onClick={() => signIn('kakao')} />

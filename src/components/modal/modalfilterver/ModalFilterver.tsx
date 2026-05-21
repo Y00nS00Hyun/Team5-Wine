@@ -23,11 +23,10 @@ export function ModalFilterver({ setWines = () => {}, showButton }: ModalFilterP
 
     const response = await wineListAPI(limit, cursor, minPrice, maxPrice, rating);
     if (response) {
-      console.log(response.list);
       setWines(response.list);
-    }
-    if (response.nextCursor) {
-      setCursor(response.nextCursor);
+      if (response.nextCursor) {
+        setCursor(response.nextCursor);
+      }
     }
   };
 

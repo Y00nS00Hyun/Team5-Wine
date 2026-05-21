@@ -8,9 +8,7 @@ import './ModalWineDelete.scss';
 export default function ModalDeleteWine({ isModalOpen, closeModal, id }: ModalWineDeleteProps) {
   const handleDeleteWine = async () => {
     try {
-      console.log(id);
       await deleteWine(id);
-      // setWines(wines.filter((wine) => wine.id !== id));
       alert('와인이 삭제되었습니다.');
       closeModal();
     } catch (error) {

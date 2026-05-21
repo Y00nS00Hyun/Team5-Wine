@@ -1,26 +1,24 @@
-import NextAuth from "next-auth"
+import NextAuth from 'next-auth';
+import type imageProp from './Image';
+import type { id } from './Id';
+import type { nickName } from './NickName';
 
-// TODO: 임의로 옮겨둠. 나중에 AuthProps 에 있는 타입과 합치기
 interface user {
-  image : imageProp
-  updatedAt : Date;
-  createdAt : Date;
-  id : id;
-  nickname : nickName;
-  email : string | null;
-
-  // TODO: 나중에 수정 필요! 
+  image: imageProp;
+  updatedAt: Date;
+  createdAt: Date;
+  id: id;
+  nickname: nickName;
+  email: string | null;
   refreshToken?: string;
   accessToken?: string;
 }
 
 interface SignResponse {
-  // refreshToken: string;
-  // accessToken: string;
   user: user;
 }
 
-declare module "next-auth" {
+declare module 'next-auth' {
   /**
    * Returned by `useSession`, `getSession` and received as a prop on the `Provider` React Context
    */
@@ -28,4 +26,3 @@ declare module "next-auth" {
     user: SignResponse;
   }
 }
-

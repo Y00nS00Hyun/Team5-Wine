@@ -6,7 +6,6 @@ function formatCurrency(amount: number): string {
 }
 
 const CardCommon: React.FC<CardProps> = ({ image, wineName, wineDesc, winePrice }) => {
-  console.log(image);
   return (
     <>
       <img src={image ? image : ''} alt="Card-image" className="card-image" />

@@ -1,23 +1,30 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+'use client';
 
-// accessToken이 localStorage에 존재할 때 or 존재하지 않을 때 페이지 리다이렉트 시키는 custom hook
+import { useEffect } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+
+const AUTH_PATHS = ['/login', '/signup'];
+
 const useRedirectAuthenticated = () => {
   const router = useRouter();
+  const pathname = usePathname();
+  const { status } = useSession();
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-    const { pathname } = router;
+    if (status === 'loading') return;
 
-    if (token) {
-      if (pathname === '/login' || pathname === '/signup') {
-        router.push('/');
-      }
-    } else {
-      if (pathname === '/login' || pathname === '/signup') return;
+    const onAuthPath = AUTH_PATHS.includes(pathname);
+
+    if (status === 'authenticated' && onAuthPath) {
+      router.push('/');
+      return;
+    }
+
+    if (status === 'unauthenticated' && !onAuthPath) {
       router.push('/login');
     }
-  }, [router]);
+  }, [status, pathname, router]);
 };
 
 export default useRedirectAuthenticated;

@@ -63,17 +63,14 @@ export default function ModalWine({ isModalOpen, closeModal }: ModalProps) {
 
     const wineData: createWineBody = {
       name: wineName,
-      region: region,
+      region,
       image: imageUrl,
       price: parseFloat(price),
-      type: type,
+      type,
     };
-
-    console.log(wineData);
 
     try {
       await addWineAPI(wineData);
-      console.log('와인 등록 성공');
       closeModal();
     } catch (error) {
       console.error('와인 등록 오류:', error);
